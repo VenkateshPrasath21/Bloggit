@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>signup</title>
+</head>
+<body style="display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;">
+
+<div style="margin-top: 200px;"><img src="" height="25px" width="30px" style="margin-left: 00px;margin-top: 00px"><span style="font-size: 28px;
+    font-family: sans-serif;
+    margin-left: 15px;color: #808080;">Blogg It</span></div>
+
+    <div style="margin-top: 5px;font-family: sans-serif;font-size: 13px;color: #808080;opacity: 0.8;"><div style="margin-top: 10px;margin-left: 20px;">If you have an account, please sign in.</div></div>
+
+<div style="margin-top: 25px;">
+
+<input type="text" id="email" name="email" value="" placeholder="E-mail" style="
+    background-color: #ECEBF6;
+    border:none;text-align: center;font-size: 13px;color: black;border-radius: 5px;height: 32px;width: 250px;">
+</br>
+<input type="text" id="username" name="username" value="" placeholder="Username" style="
+    background-color: #ECEBF6;
+    border:none;text-align: center;font-size: 13px;color: black;border-radius: 5px;height: 32px;width: 250px;margin-top: 15px;">
+</br>
+<input type="password" id="password" name="password" value="" placeholder="Password" style="
+    background-color: #ECEBF6;
+    border:none;text-align: center;font-size: 13px;color: black;border-radius: 5px;margin-top: 15px;height:32px;width: 250px;">
+</br>
+    <input type="password" id="confirmpassword" name="confirmpassword" value="" placeholder="Confirm Password" style="
+    background-color: #ECEBF6;
+    border:none;text-align: center;font-size: 13px;color: black;border-radius: 5px;margin-top: 15px;height:32px;width: 250px;">
+
+
+</div>
+
+<input onclick="send()" type="submit" value="Sign Up" style="text-decoration: none;color: white;
+    background-color: #D44638;
+    border: black;font-size: 20px;padding-left: 15px;padding-right: 15px;padding-top: 5px;padding-bottom: 5px;border-radius: 5px;margin-top: 25px;">
+
+    <div style="margin-top: 20px;color: black;" onclick="window.location.href='/Portfolio/SignIn.html';" onmouseover="this.style.color='#D44638'" onmouseleave="this.style.color='black'">signin</div>
+<div id="error" style="color: indianred;font-family: sans-serif;margin-top: 15px;"></div>
+<script>
+    document.getElementById('error').style.display='none';
+function send() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var obj = JSON.parse(this.responseText);
+      if(obj.STATUS==="Your Sign Up is Successful"){
+        window.location.href="/Portfolio/SignIn.html"
+      }
+      else{
+        document.getElementById("error").innerHTML = obj.STATUS;
+            document.getElementById("error").style.display="";
+
+            setTimeout(function(){
+                document.getElementById("error").innerHTML = '';
+                document.getElementById("error").style.display="none";
+            }, 3000);
+
+           document.getElementById("username").value="";
+           document.getElementById("email").value="";
+           document.getElementById("password").value="";
+           document.getElementById("confirmpassword").value="";
+      }
+    }
+  };
+  xhttp.open("POST", "/Portfolio/SignUpServlet", true);
+  xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;');
+  xhttp.send("username="+document.getElementById("username").value+"&email="+document.getElementById("email").value+"&password="+document.getElementById("password").value+"&confirmpassword="+document.getElementById("confirmpassword").value);
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title></title>
+<style type="text/css">
+	
+html{
+	height: 100%;
+	width: 100%;
+}
+
+#user{
+	height: 295px;
+	width: 400px;
+	border: 1px dotted black;
+	text-align: center;
+}
+
+#title{
+
+	font-family: sans-serif;
+	font-weight: 600;
+	font-size: 30px;
+	margin-top: 20px;
+}
+
+#userid{
+	font-family: sans-serif;
+	font-weight: 400;
+	font-size: 20px;
+	margin-top: 10px
+
+}
+
+#username{
+	font-family: sans-serif;
+	font-weight: 400;
+	font-size: 20px;
+	margin-top: 5px
+}
+
+#email{
+	font-family: sans-serif;
+	font-weight: 400;
+	font-size: 20px;
+	margin-top: 5px
+}
+
+</style>
+</head>
+<body onload="send()" style="height:100%;width:100%;display: flex;justify-content: center;align-items: center;">
+<div id="user">
+	<div id="title">Portfolio</div>
+	<img src="https://eitrawmaterials.eu/wp-content/uploads/2016/09/empty-avatar.jpg" height="80" width="80" style="margin-top: 20px;">
+	<div id="userid"></div>
+	<div id="username"> </div>
+	<div id="email"> </div>
+</div>
+<script>
+function send() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var obj = JSON.parse(this.responseText);
+      document.getElementById('userid').innerText="User Id  : "+obj.DATA.userid;
+      document.getElementById('username').innerText="Username : "+obj.DATA.username;
+		document.getElementById('email').innerText="E-mail   : "+obj.DATA.email;
+    }
+  };
+  xhttp.open("GET","/Portfolio/ProfileServlet", true);
+  xhttp.send();
+}
+</script>
+</body>
+</html>
